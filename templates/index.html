@@ -1,0 +1,23 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}ToDo{% endblock %}
+
+{% block styles %}
+{{super()}}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+{% endblock %}
+
+
+{% block content %}
+  <h1>TODO</h1>
+  <p> A form to add to the list on the bottom</p>
+  <ul>
+    <li>Item 1 - after each item have an edit / delete</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+
+  </ul>
+
+{% endblock %}
+
