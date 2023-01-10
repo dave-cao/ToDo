@@ -10,17 +10,17 @@
 
 
 {% block content %}
-  <h1 class="title">TODO</h1>
+  <h1 class="title">My TODO's</h1>
 
 
   <form method="POST" action="{{ url_for('home') }}" novalidate>
-    <div>
+    <div class="todo-form">
       {{ form.csrf_token }}
       {{ form.entrydate (class_='form-item') }} {{ form.task (class_='form-item', placeholder="Todo Item") }}
       {{ form.description (class_='form-item', placeholder="Description (optional)") }}
     </div>
     <div>
-      {{ form.submit (class_='form-item btn btn-primary') }}
+      {{ form.submit (class_='form-item btn btn-primary add-item-button') }}
     </div>
   </form>
 
@@ -29,7 +29,9 @@
 
 
   {% for date in todos %}
+    <div class=date-title>
     <h3>{{date[0].date.strftime("%B %d, %Y")}}</h3>
+</div>
     <div class="list-group">
       {% for todo in date %}
         {% if not todo.is_completed %}
@@ -37,7 +39,7 @@
 
             <div class="d-flex w-100 justify-content-between">
               <h5 class="mb-1">{{ todo.task }}</h5>
-              <small>3 days ago</small>
+              <small>{{ todo.date_created.strftime("%H:%M") }}</small>
             </div>
             <p>{{ todo.description }}</p>
           </a>

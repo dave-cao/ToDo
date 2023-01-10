@@ -20,6 +20,7 @@ class Todo(db.Model):
     date = db.Column(db.DateTime(now))
     is_completed = db.Column(db.Boolean(False))
     description = db.Column(db.String(250))
+    date_created = db.Column(db.DateTime(now))
 
 
 with app.app_context():
