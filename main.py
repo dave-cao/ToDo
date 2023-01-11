@@ -1,14 +1,22 @@
+import os
 from datetime import datetime, timedelta
 
 from flask import Flask, flash, redirect, render_template, url_for
 from flask_bootstrap import CDN, Bootstrap
 from flask_login import (LoginManager, current_user, login_required,
                          login_user, logout_user)
-from sqlalchemy import desc
+from sqlalchemy import create_engine, desc
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
+from sqlalchemy_cockroachdb import run_transaction
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from forms import LoginForm, RegisterForm, TodoForm
 from models import Todo, User, db
+
+# =============== # COCKROACH STUFF # ================= #
+db_uri = os.environ["DATABASE_URL"].replace("postgresql://", "cockroachdb://")
+
 
 app = Flask(__name__)
 
@@ -16,7 +24,7 @@ app.config["SECRET_KEY"] = "t432gwerg324qgwg24"
 Bootstrap(app)
 
 # Connect to cb
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///todos.db"
+app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 

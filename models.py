@@ -4,8 +4,9 @@ from datetime import datetime
 from flask import Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import declarative_base, relationship
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///todos.db"
@@ -14,7 +15,10 @@ db = SQLAlchemy(app)
 now = datetime.now()
 
 
-class Todo(db.Model):
+Base = declarative_base()
+
+
+class Todo(db.Model, Base):
     __tablename__ = "todos"
     id = db.Column(db.Integer, primary_key=True)
     task = db.Column(db.String(250), unique=False, nullable=False)
@@ -28,7 +32,7 @@ class Todo(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
 
 
-class User(UserMixin, db.Model):
+class User(UserMixin, db.Model, Base):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
