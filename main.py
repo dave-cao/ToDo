@@ -34,7 +34,7 @@ def load_user(id):
 @app.route("/", methods=["GET", "POST"])
 def home():
     now = datetime.now()
-    todos = Todo.query.order_by(desc(Todo.date)).all()
+    todos = Todo.query.order_by((Todo.date)).all()
     if current_user.is_authenticated:
         todos = [todo for todo in todos if todo.user == current_user]
     else:
