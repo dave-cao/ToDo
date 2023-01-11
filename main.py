@@ -1,6 +1,7 @@
 import os
 from datetime import datetime, timedelta
 
+from dotenv import load_dotenv
 from flask import Flask, flash, redirect, render_template, url_for
 from flask_bootstrap import CDN, Bootstrap
 from flask_login import (LoginManager, current_user, login_required,
@@ -14,8 +15,12 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from forms import LoginForm, RegisterForm, TodoForm
 from models import Todo, User, db
 
+load_dotenv()
+
 # =============== # COCKROACH STUFF # ================= #
-db_uri = os.environ["DATABASE_URL"].replace("postgresql://", "cockroachdb://")
+db_uri = os.environ.get("DATABASE_URL", "Can't access").replace(
+    "postgresql://", "cockroachdb://"
+)
 
 
 app = Flask(__name__)
@@ -27,6 +32,7 @@ Bootstrap(app)
 app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
+print("Successfully connected to database...")
 
 
 # Flask Login
