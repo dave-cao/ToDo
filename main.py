@@ -18,7 +18,7 @@ from models import Todo, User, db
 load_dotenv()
 
 # =============== # COCKROACH STUFF # ================= #
-db_uri = os.environ.get("DATABASE_URL", "Can't access").replace(
+db_uri = os.getenv("DATABASE_URL", "Can't access").replace(
     "postgresql://", "cockroachdb://"
 )
 
