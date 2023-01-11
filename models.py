@@ -2,6 +2,7 @@ import os
 from datetime import datetime
 
 from flask import Flask
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -21,6 +22,21 @@ class Todo(db.Model):
     is_completed = db.Column(db.Boolean(False))
     description = db.Column(db.String(250))
     date_created = db.Column(db.DateTime(now))
+
+    # Todos to User -- many to one
+    user = relationship("User", back_populates="todos")
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+
+
+class User(UserMixin, db.Model):
+    __tablename__ = "users"
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
+    name = db.Column(db.String(1000))
+
+    # User to todos -- one to many
+    todos = relationship("Todo", back_populates="user")
 
 
 with app.app_context():

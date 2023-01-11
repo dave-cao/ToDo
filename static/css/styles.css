@@ -22,7 +22,7 @@ h3 {
 }
 
 html {
-  margin: 2rem;
+  margin: 1rem 2rem 2rem 2rem;
 }
 
 .todo-form {
@@ -33,4 +33,12 @@ html {
   padding: 1rem;
   margin: 1rem;
   border-radius: 10px;
+}
+
+.subtitle {
+  text-align: center;
+}
+
+nav {
+  background-color: white;
 }

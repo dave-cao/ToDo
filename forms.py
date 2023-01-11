@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, DateField, StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms import (BooleanField, DateField, EmailField, PasswordField,
+                     StringField, SubmitField)
+from wtforms.validators import DataRequired, Email
 
 
 class TodoForm(FlaskForm):
@@ -13,3 +14,16 @@ class TodoForm(FlaskForm):
     entrydate = DateField(label="entrydate")
     description = StringField(label="description")
     submit = SubmitField(label="Add Item")
+
+
+class RegisterForm(FlaskForm):
+    email = EmailField("Email", validators=[DataRequired(), Email()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    name = StringField("Name", validators=[DataRequired()])
+    submit = SubmitField("Sign Me Up!")
+
+
+class LoginForm(FlaskForm):
+    email = EmailField("Email", validators=[DataRequired(), Email()])
+    password = PasswordField("Password", validators=[DataRequired()])
+    submit = SubmitField("Login")

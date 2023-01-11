@@ -10,7 +10,13 @@
 
 
 {% block content %}
-  <h1 class="title">My TODO's</h1>
+
+  {% if not current_user.is_authenticated %}
+    <h1 class="title">My TODO's</h1>
+    <p class="subtitle">Login to make your personal todo list!</p>
+  {% else %}
+    <h1 class="title">{{ current_user.name }}'s TODO's</h1>
+  {% endif %}
 
 
   <form method="POST" action="{{ url_for('home') }}" novalidate>
@@ -29,35 +35,31 @@
 
 
   {% for date in todos %}
-    <div class=date-title>
-    <h3>{{date[0].date.strftime("%B %d, %Y")}}</h3>
-</div>
+      <div class=date-title>
+        <h3>{{date[0].date.strftime("%B %d, %Y")}}</h3>
+      </div>
     <div class="list-group">
       {% for todo in date %}
-        {% if not todo.is_completed %}
-          <a href="{{ url_for("complete", todo_id=todo.id) }}" class="list-group-item list-group-item-action flex-column align-items-start">
+          {% if not todo.is_completed %}
+            <a href="{{ url_for("complete", todo_id=todo.id) }}" class="list-group-item list-group-item-action flex-column align-items-start">
 
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1">{{ todo.task }}</h5>
-              <small>{{ todo.date_created.strftime("%H:%M") }}</small>
-            </div>
-            <p>{{ todo.description }}</p>
-          </a>
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">☐ {{ todo.task }}</h5>
+                <small>{{ todo.date_created.strftime("%H:%M") }}</small>
+              </div>
+              <p>{{ todo.description }}</p>
+            </a>
 
-        {% else %}
-          <li class="list-group-item list-group-item-success">
-            <div class="d-flex w-100 justify-content-between">
-              <h5 class="mb-1"><a href="{{ url_for("complete", todo_id=todo.id )}}">☑</a> <strike>{{ todo.task }}</strike></h5>
+          {% else %}
+            <li class="list-group-item list-group-item-success">
+              <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1"><a href="{{ url_for("complete", todo_id=todo.id )}}">☑</a> <strike>{{ todo.task }}</strike></h5>
 
-              <a href="{{ url_for("delete", todo_id=todo.id)}}">✗</a>
+                <a href="{{ url_for("delete", todo_id=todo.id)}}">✗</a>
 
-            </div>
-
-          </li>
-
-
-
-        {% endif %}
+              </div>
+            </li>
+          {% endif %}
 
 
       {% endfor %}
