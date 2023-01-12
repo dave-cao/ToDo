@@ -18,10 +18,6 @@ from models import Todo, User, db
 load_dotenv()
 
 # =============== # COCKROACH STUFF # ================= #
-db_uri = os.getenv("DATABASE_URL", "Can't access").replace(
-    "postgresql://", "cockroachdb://"
-)
-
 
 app = Flask(__name__)
 
@@ -29,7 +25,7 @@ app.config["SECRET_KEY"] = "t432gwerg324qgwg24"
 Bootstrap(app)
 
 # Connect to cb
-app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///todos.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 print("Successfully connected to database...")

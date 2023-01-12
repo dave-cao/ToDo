@@ -4,11 +4,13 @@ from datetime import datetime
 from flask import Flask
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import declarative_base, relationship
+from sqlalchemy.orm import relationship
 
 app = Flask(__name__)
+db_uri = os.getenv("DATABASE_URL", "Can't access").replace(
+    "postgresql://", "cockroachdb://"
+)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///todos.db"
 db = SQLAlchemy(app)
 
