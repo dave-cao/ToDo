@@ -6,7 +6,7 @@
 
 ![USAGE GIF OR PIC TO CAPTURE ATTENTION](./assets/todo.gif)
 
-- [Live](youtube video) demonstration video.
+- [Live](https://youtu.be/biHkGhgGruQ) demonstration video.
 - [Demo](https://todo-c31n.onrender.com/) the Project.
 
 
@@ -54,7 +54,7 @@ pip install -r requirements.txt
 
 
 
-_For a more comprehensive example of using this application, refer to this [video](example video here)_
+_For a more comprehensive example of using this application, refer to this [video](https://youtu.be/biHkGhgGruQ)_
 
 
 
@@ -90,7 +90,7 @@ Don't forget to give the project a star! Thanks again!
 - [Youtube](https://www.youtube.com/channel/UCEnBPbnNnqhQIIhW1uLXrLA)
 - [Linkedin](https://www.linkedin.com/in/david-cao99/)
 - Personal Website: https://davidcao.xyz/
-- Project Link - https://github.com/dave-cao/Pomodoro-Cli
+- Project Link - https://github.com/dave-cao/ToDo
 
 
 
